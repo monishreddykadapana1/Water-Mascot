@@ -71,7 +71,11 @@ RESOURCE_BUNDLES_FOUND=0
 for bundle_path in "${ROOT_DIR}/${DERIVED_DATA_DIR}/release/"*.bundle; do
   if [ -d "$bundle_path" ]; then
     RESOURCE_BUNDLES_FOUND=1
+    # Copy to standard macOS location
     cp -R "${bundle_path}" "${RESOURCES_DIR}/"
+    # Also copy to the root of the app bundle because SwiftPM's auto-generated 
+    # Bundle.module expects it there when built as an executable target.
+    cp -R "${bundle_path}" "${APP_DIR}/"
   fi
 done
 
