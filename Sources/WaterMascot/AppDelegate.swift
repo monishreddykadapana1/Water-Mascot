@@ -14,7 +14,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     private var reminderTimer: Timer?
     private var testReminderTimer: Timer?
     private var celebrationTimer: Timer?
+    private var autoDismissTimer: Timer?
+    private var retryReminderTimer: Timer?
     private var scheduledReminderDate: Date?
+    private var currentCycleNextHourlyDate: Date?
     private var isReminderVisible = false
 
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -27,6 +30,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         reminderTimer?.invalidate()
         testReminderTimer?.invalidate()
         celebrationTimer?.invalidate()
+        autoDismissTimer?.invalidate()
+        retryReminderTimer?.invalidate()
     }
 
     private func configureStatusItem() {
@@ -80,6 +85,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             return
         }
 
+        currentCycleNextHourlyDate = scheduler.nextClockHour(after: now)
         showReminder(reason: .scheduled)
     }
 
@@ -88,6 +94,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             return
         }
 
+        if currentCycleNextHourlyDate == nil {
+            currentCycleNextHourlyDate = scheduler.nextClockHour(after: Date())
+        }
+
+        autoDismissTimer?.invalidate()
         isReminderVisible = true
         let message = messages.randomReminder()
         sendNotification(message: message)
@@ -96,12 +107,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             message: message,
             reason: reason,
             onDone: { [weak self] in
-                self?.closeMascotWindow()
+                self?.endCurrentReminderCycle()
                 self?.showCelebration()
             },
             onSnooze: { [weak self] in
                 self?.closeMascotWindow()
-                self?.scheduleSnooze()
+                self?.scheduleRetryReminder()
             }
         )
 
@@ -110,14 +121,38 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         window.contentView = NSHostingView(rootView: view)
         window.makeKeyAndOrderFront(nil)
         mascotWindow = window
+
+        autoDismissTimer = Timer.scheduledTimer(withTimeInterval: settings.autoDismissReminderSeconds, repeats: false) { [weak self] _ in
+            self?.autoDismissReminder()
+        }
     }
 
     private func sendNotification(message: String) {
         notifications.send(title: "Water break", body: message)
     }
 
-    private func scheduleSnooze() {
-        Timer.scheduledTimer(withTimeInterval: settings.snoozeMinutes * 60, repeats: false) { [weak self] _ in
+    private func autoDismissReminder() {
+        closeMascotWindow()
+        scheduleRetryReminder()
+    }
+
+    private func scheduleRetryReminder(now: Date = Date()) {
+        retryReminderTimer?.invalidate()
+
+        guard
+            settings.isEnabled,
+            let currentCycleNextHourlyDate,
+            let retryDate = scheduler.nextRetry(
+                after: now,
+                before: currentCycleNextHourlyDate,
+                interval: settings.snoozeMinutes * 60,
+                cutoffBeforeNextHour: settings.retryCutoffBeforeNextHour
+            )
+        else {
+            return
+        }
+
+        retryReminderTimer = Timer.scheduledTimer(withTimeInterval: max(1, retryDate.timeIntervalSince(now)), repeats: false) { [weak self] _ in
             self?.showReminder(reason: .snooze)
         }
     }
@@ -133,7 +168,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         celebrationWindow?.close()
 
         let view = MascotCelebrationView(message: message)
-        let window = makeFloatingMascotWindow(width: 420, height: 190)
+        let window = makeFloatingMascotWindow(width: 470, height: 180)
         window.contentView = NSHostingView(rootView: view)
         window.makeKeyAndOrderFront(nil)
         celebrationWindow = window
@@ -164,23 +199,35 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     private func floatingWindowOrigin(width: CGFloat, height: CGFloat) -> NSPoint {
         let visibleFrame = NSScreen.main?.visibleFrame ?? NSRect(x: 0, y: 0, width: 1440, height: 900)
-        let padding: CGFloat = 24
+        let trailingPadding: CGFloat = 24
+        let dockPerchOffset: CGFloat = -18
 
         return NSPoint(
-            x: visibleFrame.maxX - width - padding,
-            y: visibleFrame.minY + padding
+            x: visibleFrame.maxX - width - trailingPadding,
+            y: visibleFrame.minY + dockPerchOffset
         )
     }
 
     private func closeMascotWindow() {
+        autoDismissTimer?.invalidate()
+        autoDismissTimer = nil
         isReminderVisible = false
         mascotWindow?.delegate = nil
         mascotWindow?.close()
         mascotWindow = nil
     }
 
+    private func endCurrentReminderCycle() {
+        retryReminderTimer?.invalidate()
+        retryReminderTimer = nil
+        currentCycleNextHourlyDate = nil
+        closeMascotWindow()
+    }
+
     func windowWillClose(_ notification: Notification) {
         if notification.object as? NSWindow === mascotWindow {
+            autoDismissTimer?.invalidate()
+            autoDismissTimer = nil
             isReminderVisible = false
             mascotWindow = nil
         }
@@ -202,6 +249,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         reminderTimer?.invalidate()
         testReminderTimer?.invalidate()
         celebrationTimer?.invalidate()
+        autoDismissTimer?.invalidate()
+        retryReminderTimer?.invalidate()
     }
 
     @objc private func quit() {

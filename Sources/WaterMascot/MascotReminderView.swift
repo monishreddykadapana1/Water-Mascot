@@ -51,7 +51,8 @@ struct MascotReminderView: View {
             }
             .shadow(color: .black.opacity(0.18), radius: 16, x: 0, y: 8)
         }
-        .padding(18)
+        .padding(.top, 18)
+        .padding(.horizontal, 18)
         .frame(width: 510, height: 190)
         .background(Color.clear)
     }
@@ -63,28 +64,31 @@ struct MascotCelebrationView: View {
     var body: some View {
         HStack(alignment: .bottom, spacing: 12) {
             MascotImageView(assetName: "mascot_celebrate", fallbackSystemImage: "checkmark.circle.fill")
-                .frame(width: 150, height: 150)
+                .frame(width: 145, height: 145)
 
             Text(message)
-                .font(.system(size: 15, weight: .semibold))
+                .font(.system(size: 16, weight: .semibold))
                 .multilineTextAlignment(.leading)
                 .lineLimit(2)
                 .fixedSize(horizontal: false, vertical: true)
-                .padding(.horizontal, 16)
-                .padding(.vertical, 14)
-                .frame(width: 220, alignment: .leading)
+                .padding(.horizontal, 18)
+                .padding(.vertical, 16)
+                .frame(width: 275, alignment: .leading)
+                .frame(minHeight: 74, alignment: .leading)
                 .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-                .overlay(alignment: .bottomLeading) {
+                .overlay(alignment: .leading) {
                     SpeechBubbleTail()
                         .fill(.regularMaterial)
                         .frame(width: 18, height: 18)
                         .rotationEffect(.degrees(45))
-                        .offset(x: -7, y: -24)
+                        .offset(x: -7)
                 }
                 .shadow(color: .black.opacity(0.18), radius: 16, x: 0, y: 8)
+                .padding(.bottom, 42)
         }
-        .padding(18)
-        .frame(width: 420, height: 190)
+        .padding(.top, 18)
+        .padding(.horizontal, 18)
+        .frame(width: 470, height: 180)
         .background(Color.clear)
     }
 }
