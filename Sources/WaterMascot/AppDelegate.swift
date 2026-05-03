@@ -1,6 +1,7 @@
 import AppKit
 import SwiftUI
 import WaterMascotCore
+import WaterMascotUI
 
 final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     private let settings = ReminderSettings()
@@ -116,7 +117,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             }
         )
 
-        let window = makeFloatingMascotWindow(width: 510, height: 190)
+        let window = makeFloatingMascotWindow(width: 548, height: 190)
         window.delegate = self
         window.contentView = NSHostingView(rootView: view)
         window.makeKeyAndOrderFront(nil)
@@ -168,7 +169,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         celebrationWindow?.close()
 
         let view = MascotCelebrationView(message: message)
-        let window = makeFloatingMascotWindow(width: 470, height: 180)
+        let window = makeFloatingMascotWindow(width: 488, height: 180)
         window.contentView = NSHostingView(rootView: view)
         window.makeKeyAndOrderFront(nil)
         celebrationWindow = window

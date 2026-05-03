@@ -9,16 +9,26 @@ let package = Package(
     ],
     products: [
         .library(name: "WaterMascotCore", targets: ["WaterMascotCore"]),
-        .executable(name: "WaterMascot", targets: ["WaterMascot"])
+        .library(name: "WaterMascotUI", targets: ["WaterMascotUI"]),
+        .executable(name: "WaterMascot", targets: ["WaterMascot"]),
+        .executable(name: "WaterMascotPreviewHost", targets: ["WaterMascotPreviewHost"])
     ],
     targets: [
         .target(name: "WaterMascotCore"),
-        .executableTarget(
-            name: "WaterMascot",
+        .target(
+            name: "WaterMascotUI",
             dependencies: ["WaterMascotCore"],
             resources: [
                 .process("Resources")
             ]
+        ),
+        .executableTarget(
+            name: "WaterMascot",
+            dependencies: ["WaterMascotCore", "WaterMascotUI"]
+        ),
+        .executableTarget(
+            name: "WaterMascotPreviewHost",
+            dependencies: ["WaterMascotUI"]
         ),
         .testTarget(
             name: "WaterMascotTests",

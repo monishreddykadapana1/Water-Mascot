@@ -30,9 +30,17 @@ To test quickly, click the water drop menu bar icon and choose `Test Reminder in
 The app currently looks for these mascot states:
 
 ```text
-Sources/WaterMascot/Resources/Mascot/mascot_reminder.png
-Sources/WaterMascot/Resources/Mascot/mascot_celebrate.png
+Sources/WaterMascotUI/Resources/Mascot/mascot_reminder.png
+Sources/WaterMascotUI/Resources/Mascot/mascot_celebrate.png
 ```
+
+## UI preview (optional)
+
+```zsh
+swift run WaterMascotPreviewHost
+```
+
+Opens a window with the reminder and celebration layouts for quick visual checks.
 
 ## Test
 
