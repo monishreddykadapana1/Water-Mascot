@@ -26,11 +26,8 @@ public struct MascotReminderView: View {
     }
 
     public var body: some View {
-        HStack(alignment: .top, spacing: 12) {
-            MascotImageView(assetName: "mascot_reminder", fallbackSystemImage: "drop.fill")
-                .frame(width: 160, height: 160)
-
-            ZStack(alignment: .topLeading) {
+        VStack(alignment: .center, spacing: -8) {
+            ZStack(alignment: .bottom) {
                 VStack(alignment: .leading, spacing: 16) {
                     Text(message)
                         .font(.system(size: 12, weight: .medium))
@@ -95,12 +92,14 @@ public struct MascotReminderView: View {
                 MessageBubblePolygonTail()
                     .allowsHitTesting(false)
             }
-            // Let the tail extend left past the bubble without clipping; it sits in the 12pt mascot gap.
-            .padding(.leading, -14)
+            .padding(.bottom, -14)
+
+            MascotImageView(assetName: "mascot_reminder", fallbackSystemImage: "drop.fill")
+                .frame(width: 160, height: 160)
         }
-        .padding(.top, 18)
+        .padding(.vertical, 18)
         .padding(.horizontal, 18)
-        .frame(width: 548, height: 190)
+        .frame(width: 360, height: 340)
         .background(Color.clear)
     }
 }
@@ -113,11 +112,8 @@ public struct MascotCelebrationView: View {
     }
 
     public var body: some View {
-        HStack(alignment: .top, spacing: 12) {
-            MascotImageView(assetName: "mascot_celebrate", fallbackSystemImage: "checkmark.circle.fill")
-                .frame(width: 160, height: 160)
-
-            ZStack(alignment: .topLeading) {
+        VStack(alignment: .center, spacing: -8) {
+            ZStack(alignment: .bottom) {
                 VStack(alignment: .leading, spacing: 16) {
                     Text(message)
                         .font(.system(size: 12, weight: .semibold))
@@ -127,17 +123,21 @@ public struct MascotCelebrationView: View {
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 .padding(16)
+                .frame(width: 320, alignment: .center)
                 .background(Color(red: 0.15, green: 0.17, blue: 0.28))
-                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
 
                 MessageBubblePolygonTail()
                     .allowsHitTesting(false)
             }
-            .padding(.leading, -14)
+            .padding(.bottom, -14)
+
+            MascotImageView(assetName: "mascot_celebrate", fallbackSystemImage: "checkmark.circle.fill")
+                .frame(width: 160, height: 160)
         }
-        .padding(.top, 18)
+        .padding(.vertical, 18)
         .padding(.horizontal, 18)
-        .frame(width: 488, height: 180)
+        .frame(width: 360, height: 340)
         .background(Color.clear)
     }
 }
@@ -184,9 +184,8 @@ private struct MessageBubblePolygonTail: View {
         BubbleTailVectorShape()
             .fill(Self.tailFill)
             .frame(width: 17, height: 19)
-            // Anticlockwise 90° (`rotationEffect`: positive is clockwise, so use -90).
-            .rotationEffect(.degrees(-5))
-            .offset(x: -10, y: 10)
+            .rotationEffect(.degrees(-95))
+            .offset(y: 14)
             .accessibilityHidden(true)
     }
 }
