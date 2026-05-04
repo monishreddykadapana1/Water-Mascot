@@ -12,11 +12,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     private var statusItem: NSStatusItem?
     private var mascotWindow: NSWindow?
     private var celebrationWindow: NSWindow?
-    private var reminderTimer: DispatchSourceTimer?
+    private var reminderTimer: Timer?
     private var testReminderTimer: Timer?
     private var celebrationTimer: Timer?
     private var autoDismissTimer: Timer?
-    private var retryReminderTimer: DispatchSourceTimer?
+    private var retryReminderTimer: Timer?
     private var scheduledReminderDate: Date?
     private var currentCycleNextHourlyDate: Date?
     private var isReminderVisible = false
@@ -28,11 +28,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
 
     func applicationWillTerminate(_ notification: Notification) {
-        reminderTimer?.cancel()
+        reminderTimer?.invalidate()
         testReminderTimer?.invalidate()
         celebrationTimer?.invalidate()
         autoDismissTimer?.invalidate()
-        retryReminderTimer?.cancel()
+        retryReminderTimer?.invalidate()
     }
 
     private func configureStatusItem() {
@@ -59,7 +59,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
 
     private func scheduleNextHourlyCheck(now: Date = Date()) {
-        reminderTimer?.cancel()
+        reminderTimer?.invalidate()
 
         guard settings.isEnabled else {
             return
@@ -67,14 +67,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
         let nextReminderDate = scheduler.nextWholeHour(after: now, within: settings.activeHours)
         scheduledReminderDate = nextReminderDate
-        let interval = max(1, nextReminderDate.timeIntervalSince(now))
 
-        let timer = DispatchSource.makeTimerSource(flags: .strict, queue: .main)
-        timer.schedule(deadline: .now() + interval)
-        timer.setEventHandler { [weak self] in
+        let timer = Timer(fire: nextReminderDate, interval: 0, repeats: false) { [weak self] _ in
             self?.handleHourlyReminder()
         }
-        timer.resume()
+        RunLoop.main.add(timer, forMode: .common)
         reminderTimer = timer
     }
 
@@ -142,7 +139,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
 
     private func scheduleRetryReminder(now: Date = Date()) {
-        retryReminderTimer?.cancel()
+        retryReminderTimer?.invalidate()
 
         guard
             settings.isEnabled,
@@ -157,12 +154,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             return
         }
 
-        let timer = DispatchSource.makeTimerSource(flags: .strict, queue: .main)
-        timer.schedule(deadline: .now() + max(1, retryDate.timeIntervalSince(now)))
-        timer.setEventHandler { [weak self] in
+        let timer = Timer(fire: retryDate, interval: 0, repeats: false) { [weak self] _ in
             self?.showReminder(reason: .snooze)
         }
-        timer.resume()
+        RunLoop.main.add(timer, forMode: .common)
         retryReminderTimer = timer
     }
 
@@ -227,7 +222,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
 
     private func endCurrentReminderCycle() {
-        retryReminderTimer?.cancel()
+        retryReminderTimer?.invalidate()
         retryReminderTimer = nil
         currentCycleNextHourlyDate = nil
         closeMascotWindow()
@@ -255,11 +250,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     @objc private func pauseToday() {
         settings.isEnabled = false
-        reminderTimer?.cancel()
+        reminderTimer?.invalidate()
         testReminderTimer?.invalidate()
         celebrationTimer?.invalidate()
         autoDismissTimer?.invalidate()
-        retryReminderTimer?.cancel()
+        retryReminderTimer?.invalidate()
     }
 
     @objc private func quit() {
