@@ -6,7 +6,7 @@ public final class ReminderSettings {
     public var snoozeMinutes: TimeInterval = 10
     public var autoDismissReminderSeconds: TimeInterval = 60
     public var retryCutoffBeforeNextHour: TimeInterval = 20 * 60
-    public var missedReminderGracePeriod: TimeInterval = 90
+    public var missedReminderGracePeriod: TimeInterval = 300
 
     public init() {}
 }
