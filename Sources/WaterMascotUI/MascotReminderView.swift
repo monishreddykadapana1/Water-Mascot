@@ -251,6 +251,7 @@ struct MascotReminderView_Previews: PreviewProvider {
 }
 #endif
 
+#if DEBUG
 #Preview("Reminder") {
     MascotReminderView(
         message: "Quick water break. Champions hydrate between rallies.",
@@ -263,3 +264,4 @@ struct MascotReminderView_Previews: PreviewProvider {
 #Preview("Celebration") {
     MascotCelebrationView(message: "Hydration point secured.")
 }
+#endif

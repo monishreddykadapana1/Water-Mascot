@@ -71,6 +71,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         let timer = Timer(fire: nextReminderDate, interval: 0, repeats: false) { [weak self] _ in
             self?.handleHourlyReminder()
         }
+        timer.tolerance = 0
         RunLoop.main.add(timer, forMode: .common)
         reminderTimer = timer
     }
@@ -157,6 +158,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         let timer = Timer(fire: retryDate, interval: 0, repeats: false) { [weak self] _ in
             self?.showReminder(reason: .snooze)
         }
+        timer.tolerance = 0
         RunLoop.main.add(timer, forMode: .common)
         retryReminderTimer = timer
     }
@@ -243,9 +245,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     @objc private func scheduleTestReminder() {
         testReminderTimer?.invalidate()
-        testReminderTimer = Timer.scheduledTimer(withTimeInterval: 10, repeats: false) { [weak self] _ in
+        let timer = Timer(timeInterval: 10, repeats: false) { [weak self] _ in
             self?.showReminder(reason: .test)
         }
+        timer.tolerance = 0
+        RunLoop.main.add(timer, forMode: .common)
+        testReminderTimer = timer
     }
 
     @objc private func pauseToday() {

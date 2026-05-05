@@ -1,7 +1,12 @@
 import Foundation
 import UserNotifications
 
-final class SystemNotificationClient {
+final class SystemNotificationClient: NSObject, UNUserNotificationCenterDelegate {
+    override init() {
+        super.init()
+        UNUserNotificationCenter.current().delegate = self
+    }
+
     var canUseSystemNotifications: Bool {
         Bundle.main.bundleIdentifier != nil
     }
@@ -37,5 +42,12 @@ final class SystemNotificationClient {
         )
 
         UNUserNotificationCenter.current().add(request)
+    }
+
+    // MARK: - UNUserNotificationCenterDelegate
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        // Force the notification banner to appear even if the app is active/foreground
+        completionHandler([.banner, .sound])
     }
 }

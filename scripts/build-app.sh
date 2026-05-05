@@ -73,9 +73,6 @@ for bundle_path in "${ROOT_DIR}/${DERIVED_DATA_DIR}/release/"*.bundle; do
     RESOURCE_BUNDLES_FOUND=1
     # Copy to standard macOS location
     cp -R "${bundle_path}" "${RESOURCES_DIR}/"
-    # Also copy to the root of the app bundle because SwiftPM's auto-generated 
-    # Bundle.module expects it there when built as an executable target.
-    cp -R "${bundle_path}" "${APP_DIR}/"
   fi
 done
 
@@ -83,5 +80,12 @@ if [[ "${RESOURCE_BUNDLES_FOUND}" -eq 0 ]]; then
   echo "Warning: no .bundle resources found under ${DERIVED_DATA_DIR}/release"
 fi
 
-echo "App bundle created:"
+echo "Ad-hoc signing the app bundle..."
+codesign -s - --force --deep "${APP_DIR}"
+
+echo "Creating zip archive..."
+ditto -c -k --keepParent "${APP_DIR}" "${ROOT_DIR}/${OUTPUT_DIR}/${APP_NAME}.zip"
+
+echo "App bundle created and signed:"
 echo "  ${APP_DIR}"
+echo "  ${ROOT_DIR}/${OUTPUT_DIR}/${APP_NAME}.zip"
