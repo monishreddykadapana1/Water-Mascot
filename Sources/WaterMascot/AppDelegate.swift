@@ -20,8 +20,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     private var scheduledReminderDate: Date?
     private var currentCycleNextHourlyDate: Date?
     private var isReminderVisible = false
+    private var backgroundActivity: NSObjectProtocol?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        // Prevent App Nap from pausing the main runloop so timers fire on time
+        backgroundActivity = ProcessInfo.processInfo.beginActivity(
+            options: [.userInitiatedAllowingIdleSystemSleep, .latencyCritical],
+            reason: "Water Mascot Hourly Timer"
+        )
+        
         configureStatusItem()
         requestNotificationPermission()
         scheduleNextHourlyCheck()

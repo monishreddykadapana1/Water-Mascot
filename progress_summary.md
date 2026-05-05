@@ -26,3 +26,15 @@ This document summarizes the changes made to the Water Mascot application to fix
 
 ## 6. Build Process
 - **Process**: All changes were successfully verified and compiled into a fresh macOS `.app` bundle using the `./scripts/build-app.sh` script.
+
+## 7. Local Notification Code Signing Fix
+- **Issue**: The application failed to request User Notification permissions natively (`UNErrorDomain error 1`), meaning notifications were entirely broken.
+- **Solution**: macOS strictly requires applications to be code-signed to receive local notification privileges. We updated `scripts/build-app.sh` to remove inappropriately placed resource bundles (which broke signing) and automatically added ad-hoc code-signing (`codesign -s - --force --deep`). The build script now also safely zips the app using `ditto`.
+
+## 8. App Nap and Timer Precision Fixes
+- **Issue**: The hourly background timers were failing to trigger notifications because macOS "App Nap" indefinitely suspended the background app, and timer coalescing delayed the exact execution time past the strict 5-minute grace period. Furthermore, macOS silently swallowed notifications when the app was frontmost.
+- **Solution**: 
+  - Instructed macOS to keep the background timer alive by declaring a latency-critical system activity (`ProcessInfo.processInfo.beginActivity(options: [.userInitiatedAllowingIdleSystemSleep, .latencyCritical])`).
+  - Instructed the `Timer` instances to fire with zero tolerance (`timer.tolerance = 0`).
+  - Increased the `missedReminderGracePeriod` from 5 minutes to 15 minutes to guarantee slightly delayed wake-ups are still delivered.
+  - Implemented `UNUserNotificationCenterDelegate` to forcefully show macOS banners even if the user clicks the menu bar icon making the app "active."
