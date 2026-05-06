@@ -12,7 +12,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     private var statusItem: NSStatusItem?
     private var mascotWindow: NSWindow?
     private var celebrationWindow: NSWindow?
-    private var reminderTimer: Timer?
+    private var tickTimer: Timer?
     private var testReminderTimer: Timer?
     private var celebrationTimer: Timer?
     private var autoDismissTimer: Timer?
@@ -31,11 +31,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         
         configureStatusItem()
         requestNotificationPermission()
-        scheduleNextHourlyCheck()
+        calculateNextHourlyCheck()
+        setupTickTimer()
+        
+        NSWorkspace.shared.notificationCenter.addObserver(
+            self,
+            selector: #selector(handleWake),
+            name: NSWorkspace.didWakeNotification,
+            object: nil
+        )
     }
 
     func applicationWillTerminate(_ notification: Notification) {
-        reminderTimer?.invalidate()
+        tickTimer?.invalidate()
         testReminderTimer?.invalidate()
         celebrationTimer?.invalidate()
         autoDismissTimer?.invalidate()
@@ -65,33 +73,46 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         notifications.requestPermission()
     }
 
-    private func scheduleNextHourlyCheck(now: Date = Date()) {
-        reminderTimer?.invalidate()
-
-        guard settings.isEnabled else {
-            return
-        }
-
-        let nextReminderDate = scheduler.nextWholeHour(after: now, within: settings.activeHours)
-        scheduledReminderDate = nextReminderDate
-
-        let timer = Timer(fire: nextReminderDate, interval: 0, repeats: false) { [weak self] _ in
-            self?.handleHourlyReminder()
+    private func setupTickTimer() {
+        tickTimer?.invalidate()
+        let timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] _ in
+            self?.tick()
         }
         timer.tolerance = 0
         RunLoop.main.add(timer, forMode: .common)
-        reminderTimer = timer
+        tickTimer = timer
     }
 
-    private func handleHourlyReminder() {
-        let now = Date()
-        defer { scheduleNextHourlyCheck(now: now) }
+    @objc private func handleWake() {
+        // Evaluate immediately when the Mac wakes up
+        tick()
+    }
 
-        guard settings.isEnabled, scheduler.isWithinActiveHours(now, activeHours: settings.activeHours) else {
+    @objc private func tick() {
+        guard settings.isEnabled, let target = scheduledReminderDate else { return }
+        let now = Date()
+        
+        if now >= target {
+            handleHourlyReminder(now: now)
+        }
+    }
+
+    private func calculateNextHourlyCheck(now: Date = Date()) {
+        guard settings.isEnabled else {
+            return
+        }
+        let nextReminderDate = scheduler.nextWholeHour(after: now, within: settings.activeHours)
+        scheduledReminderDate = nextReminderDate
+    }
+
+    private func handleHourlyReminder(now: Date) {
+        defer { calculateNextHourlyCheck(now: now) }
+
+        guard scheduler.isWithinActiveHours(now, activeHours: settings.activeHours) else {
             return
         }
 
-        guard let scheduledReminderDate, abs(now.timeIntervalSince(scheduledReminderDate)) <= settings.missedReminderGracePeriod else {
+        guard let scheduledReminderDate, now.timeIntervalSince(scheduledReminderDate) <= settings.missedReminderGracePeriod else {
             return
         }
 
@@ -262,7 +283,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     @objc private func pauseToday() {
         settings.isEnabled = false
-        reminderTimer?.invalidate()
+        tickTimer?.invalidate()
         testReminderTimer?.invalidate()
         celebrationTimer?.invalidate()
         autoDismissTimer?.invalidate()
