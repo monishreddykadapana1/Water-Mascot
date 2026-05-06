@@ -99,7 +99,7 @@ public struct MascotReminderView: View {
         }
         .padding(.vertical, 18)
         .padding(.horizontal, 18)
-        .frame(width: 360, height: 340)
+        .frame(width: 360, height: 340, alignment: .bottom)
         .background(Color.clear)
     }
 }
@@ -137,7 +137,7 @@ public struct MascotCelebrationView: View {
         }
         .padding(.vertical, 18)
         .padding(.horizontal, 18)
-        .frame(width: 360, height: 340)
+        .frame(width: 360, height: 340, alignment: .bottom)
         .background(Color.clear)
     }
 }

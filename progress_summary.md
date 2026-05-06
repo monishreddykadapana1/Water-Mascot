@@ -38,3 +38,7 @@ This document summarizes the changes made to the Water Mascot application to fix
   - Instructed the `Timer` instances to fire with zero tolerance (`timer.tolerance = 0`).
   - Increased the `missedReminderGracePeriod` from 5 minutes to 15 minutes to guarantee slightly delayed wake-ups are still delivered.
   - Implemented `UNUserNotificationCenterDelegate` to forcefully show macOS banners even if the user clicks the menu bar icon making the app "active."
+
+## 9. Wake Grace Period and Stale Timer Fix
+- **Issue**: Timers scheduled before the Mac went to sleep would fire immediately upon waking up, bypassing the 15-minute grace period meant for the hourly cycle. This caused the mascot to trigger unexpectedly when opening the laptop late into the hour.
+- **Solution**: Updated `handleWake` and the internal snooze timer logic in `AppDelegate.swift` to strictly check the elapsed time since the start of the scheduled hour. If the Mac wakes up and the elapsed time exceeds the 15-minute `missedReminderGracePeriod`, any pending snoozes or late-firing timers are automatically invalidated, ensuring reminders are strictly constrained to the grace window.

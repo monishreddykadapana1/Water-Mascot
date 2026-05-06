@@ -256,9 +256,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
 
     private func floatingWindowOrigin(width: CGFloat, height: CGFloat) -> NSPoint {
-        let visibleFrame = NSScreen.main?.visibleFrame ?? NSRect(x: 0, y: 0, width: 1440, height: 900)
-        let trailingPadding: CGFloat = 24
-        let dockPerchOffset: CGFloat = -18
+        let screen = NSScreen.main
+        let visibleFrame = screen?.visibleFrame ?? NSRect(x: 0, y: 0, width: 1440, height: 900)
+        
+        let trailingPadding: CGFloat = 400
+        let dockPerchOffset: CGFloat = -22
 
         return NSPoint(
             x: visibleFrame.maxX - width - trailingPadding,
