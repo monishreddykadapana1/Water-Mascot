@@ -84,6 +84,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
 
     @objc private func handleWake() {
+        let now = Date()
+        
+        if let currentCycleNextHourlyDate {
+            let currentHour = currentCycleNextHourlyDate.addingTimeInterval(-3600)
+            if now.timeIntervalSince(currentHour) > settings.missedReminderGracePeriod {
+                endCurrentReminderCycle()
+            }
+        }
+        
         // Evaluate immediately when the Mac wakes up
         tick()
     }
@@ -184,7 +193,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         }
 
         let timer = Timer(fire: retryDate, interval: 0, repeats: false) { [weak self] _ in
-            self?.showReminder(reason: .snooze)
+            guard let self else { return }
+            
+            guard let currentCycleNextHourlyDate = self.currentCycleNextHourlyDate else {
+                return
+            }
+            
+            let fireNow = Date()
+            let currentHour = currentCycleNextHourlyDate.addingTimeInterval(-3600)
+            
+            if fireNow.timeIntervalSince(retryDate) > 2, 
+               fireNow.timeIntervalSince(currentHour) > self.settings.missedReminderGracePeriod {
+                self.endCurrentReminderCycle()
+                return
+            }
+            
+            self.showReminder(reason: .snooze)
         }
         timer.tolerance = 0
         RunLoop.main.add(timer, forMode: .common)
