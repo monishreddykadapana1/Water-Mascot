@@ -141,14 +141,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         autoDismissTimer?.invalidate()
         isReminderVisible = true
         let message = messages.randomReminder()
+        let celebrationMessage = messages.randomCelebration()
         sendNotification(message: message)
 
         let view = MascotReminderView(
             message: message,
+            celebrationMessage: celebrationMessage,
             reason: reason,
             onDone: { [weak self] in
                 self?.endCurrentReminderCycle()
-                self?.showCelebration()
             },
             onSnooze: { [weak self] in
                 self?.closeMascotWindow()
@@ -225,16 +226,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         celebrationTimer?.invalidate()
         celebrationWindow?.close()
 
-        let view = MascotCelebrationView(message: message)
+        let view = MascotCelebrationView(
+            message: message,
+            autoDismissAfter: 3,
+            onDismiss: { [weak self] in
+                self?.celebrationWindow?.close()
+                self?.celebrationWindow = nil
+            }
+        )
         let window = makeFloatingMascotWindow(width: 360, height: 340)
         window.contentView = NSHostingView(rootView: view)
         window.makeKeyAndOrderFront(nil)
         celebrationWindow = window
-
-        celebrationTimer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { [weak self] _ in
-            self?.celebrationWindow?.close()
-            self?.celebrationWindow = nil
-        }
     }
 
     private func makeFloatingMascotWindow(width: CGFloat, height: CGFloat) -> NSWindow {

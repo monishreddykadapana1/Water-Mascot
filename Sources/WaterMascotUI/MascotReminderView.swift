@@ -9,17 +9,27 @@ public enum ReminderReason {
 
 public struct MascotReminderView: View {
     let message: String
+    let celebrationMessage: String
+    let celebrationAutoDismissAfter: TimeInterval
     let reason: ReminderReason
     let onDone: () -> Void
     let onSnooze: () -> Void
+    @State private var isMascotVisible = false
+    @State private var isBubbleVisible = false
+    @State private var isExiting = false
+    @State private var isCelebrating = false
 
     public init(
         message: String,
+        celebrationMessage: String = "Hydration point secured",
+        celebrationAutoDismissAfter: TimeInterval = 3,
         reason: ReminderReason,
         onDone: @escaping () -> Void,
         onSnooze: @escaping () -> Void
     ) {
         self.message = message
+        self.celebrationMessage = celebrationMessage
+        self.celebrationAutoDismissAfter = celebrationAutoDismissAfter
         self.reason = reason
         self.onDone = onDone
         self.onSnooze = onSnooze
@@ -29,15 +39,16 @@ public struct MascotReminderView: View {
         VStack(alignment: .center, spacing: -8) {
             ZStack(alignment: .bottom) {
                 VStack(alignment: .leading, spacing: 16) {
-                    Text(message)
-                        .font(.system(size: 12, weight: .medium))
+                    Text(isCelebrating ? celebrationMessage : message)
+                        .font(.system(size: 12, weight: isCelebrating ? .semibold : .medium))
                         .foregroundStyle(Color.white.opacity(0.95))
                         .multilineTextAlignment(.leading)
-                        .lineLimit(3)
+                        .lineLimit(isCelebrating ? 2 : 3)
                         .fixedSize(horizontal: false, vertical: true)
 
-                    HStack(spacing: 8) {
-                        Button(action: onSnooze) {
+                    if !isCelebrating {
+                        HStack(spacing: 8) {
+                        Button(action: { performExitThen(onSnooze) }) {
                             HStack(alignment: .center, spacing: 10) {
                                 Text("Snooze")
                             }
@@ -57,10 +68,11 @@ public struct MascotReminderView: View {
                             }
                             .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
                         }
-                        .buttonStyle(.plain)
                         .keyboardShortcut(.cancelAction)
+                        .buttonStyle(AnimatedButtonStyle())
+                        .disabled(isExiting)
 
-                        Button(action: onDone) {
+                        Button(action: performSuccessSequence) {
                             HStack(alignment: .center, spacing: 10) {
                                 Text("On it")
                             }
@@ -80,8 +92,10 @@ public struct MascotReminderView: View {
                             }
                             .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
                         }
-                        .buttonStyle(.plain)
                         .keyboardShortcut(.defaultAction)
+                        .buttonStyle(AnimatedButtonStyle())
+                        .disabled(isExiting)
+                        }
                     }
                 }
                 .padding(16)
@@ -93,22 +107,116 @@ public struct MascotReminderView: View {
                     .allowsHitTesting(false)
             }
             .padding(.bottom, -14)
+            .opacity(isBubbleVisible ? 1 : 0)
+            .scaleEffect(isBubbleVisible ? 1 : 0.96, anchor: .bottom)
+            .offset(y: isBubbleVisible ? 0 : 10)
 
-            MascotImageView(assetName: "mascot_reminder", fallbackSystemImage: "drop.fill")
+            MascotImageView(
+                assetName: isCelebrating ? "mascot_celebrate" : "mascot_reminder",
+                fallbackSystemImage: isCelebrating ? "checkmark.circle.fill" : "drop.fill"
+            )
                 .frame(width: 160, height: 160)
+                .opacity(isMascotVisible ? 1 : 0)
+                .scaleEffect(isMascotVisible ? 1 : 0.96, anchor: .bottom)
+                .offset(y: isMascotVisible ? 0 : 8)
         }
         .padding(.vertical, 18)
         .padding(.horizontal, 18)
         .frame(width: 360, height: 340, alignment: .bottom)
         .background(Color.clear)
+        .onAppear(perform: runEntranceAnimation)
+    }
+
+    private func runEntranceAnimation() {
+        isMascotVisible = false
+        isBubbleVisible = false
+        isExiting = false
+        isCelebrating = false
+
+        withAnimation(MascotMotion.easeOut) {
+            isMascotVisible = true
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + MascotMotion.bubbleDelay) {
+            withAnimation(MascotMotion.easeOut) {
+                isBubbleVisible = true
+            }
+        }
+    }
+
+    private func performSuccessSequence() {
+        guard !isExiting else {
+            return
+        }
+
+        isExiting = true
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + MascotMotion.buttonReboundDelay) {
+            withAnimation(MascotMotion.easeOut) {
+                isBubbleVisible = false
+            }
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + MascotMotion.buttonReboundDelay + MascotMotion.duration) {
+            isCelebrating = true
+            isExiting = false
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + MascotMotion.bubbleDelay) {
+                withAnimation(MascotMotion.easeOut) {
+                    isBubbleVisible = true
+                }
+            }
+        }
+
+        DispatchQueue.main.asyncAfter(
+            deadline: .now() + MascotMotion.buttonReboundDelay + MascotMotion.duration + MascotMotion.bubbleDelay + celebrationAutoDismissAfter
+        ) {
+            performExitThen(onDone, waitForButtonRebound: false)
+        }
+    }
+
+    private func performExitThen(_ action: @escaping () -> Void, waitForButtonRebound: Bool = true) {
+        guard !isExiting else {
+            return
+        }
+
+        isExiting = true
+        let initialDelay = waitForButtonRebound ? MascotMotion.buttonReboundDelay : 0
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + initialDelay) {
+            withAnimation(MascotMotion.easeOut) {
+                isBubbleVisible = false
+            }
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + initialDelay + MascotMotion.bubbleDelay) {
+            withAnimation(MascotMotion.easeOut) {
+                isMascotVisible = false
+            }
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + initialDelay + MascotMotion.bubbleDelay + MascotMotion.duration) {
+            action()
+        }
     }
 }
 
 public struct MascotCelebrationView: View {
     let message: String
+    let autoDismissAfter: TimeInterval?
+    let onDismiss: (() -> Void)?
+    @State private var isMascotVisible = false
+    @State private var isBubbleVisible = false
+    @State private var isExiting = false
 
-    public init(message: String) {
+    public init(
+        message: String,
+        autoDismissAfter: TimeInterval? = nil,
+        onDismiss: (() -> Void)? = nil
+    ) {
         self.message = message
+        self.autoDismissAfter = autoDismissAfter
+        self.onDismiss = onDismiss
     }
 
     public var body: some View {
@@ -131,14 +239,87 @@ public struct MascotCelebrationView: View {
                     .allowsHitTesting(false)
             }
             .padding(.bottom, -14)
+            .opacity(isBubbleVisible ? 1 : 0)
+            .scaleEffect(isBubbleVisible ? 1 : 0.96, anchor: .bottom)
+            .offset(y: isBubbleVisible ? 0 : 10)
 
             MascotImageView(assetName: "mascot_celebrate", fallbackSystemImage: "checkmark.circle.fill")
                 .frame(width: 160, height: 160)
+                .opacity(isMascotVisible ? 1 : 0)
+                .scaleEffect(isMascotVisible ? 1 : 0.96, anchor: .bottom)
+                .offset(y: isMascotVisible ? 0 : 8)
         }
         .padding(.vertical, 18)
         .padding(.horizontal, 18)
         .frame(width: 360, height: 340, alignment: .bottom)
         .background(Color.clear)
+        .onAppear(perform: runEntranceAnimation)
+    }
+
+    private func runEntranceAnimation() {
+        isMascotVisible = false
+        isBubbleVisible = false
+
+        withAnimation(MascotMotion.easeOut) {
+            isMascotVisible = true
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + MascotMotion.bubbleDelay) {
+            withAnimation(MascotMotion.easeOut) {
+                isBubbleVisible = true
+            }
+        }
+
+        if let autoDismissAfter {
+            DispatchQueue.main.asyncAfter(deadline: .now() + autoDismissAfter) {
+                runExitAnimation()
+            }
+        }
+    }
+
+    private func runExitAnimation() {
+        guard !isExiting else {
+            return
+        }
+
+        isExiting = true
+
+        withAnimation(MascotMotion.easeOut) {
+            isBubbleVisible = false
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + MascotMotion.bubbleDelay) {
+            withAnimation(MascotMotion.easeOut) {
+                isMascotVisible = false
+            }
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + MascotMotion.bubbleDelay + MascotMotion.duration) {
+            onDismiss?()
+        }
+    }
+}
+
+private enum MascotMotion {
+    static let bubbleDelay: TimeInterval = 0.1
+    static let buttonReboundDelay: TimeInterval = 0.15
+    static let duration: TimeInterval = 0.2
+    static let easeOut = Animation.easeOut(duration: duration)
+}
+
+private struct AnimatedButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .contentShape(Rectangle())
+            .scaleEffect(configuration.isPressed ? 0.97 : 1)
+            .animation(.easeOut(duration: MascotMotion.buttonReboundDelay), value: configuration.isPressed)
+            .onHover { isHovered in
+                if isHovered {
+                    NSCursor.pointingHand.push()
+                } else {
+                    NSCursor.pop()
+                }
+            }
     }
 }
 
