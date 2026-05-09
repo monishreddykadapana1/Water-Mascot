@@ -1,8 +1,36 @@
+# macOS
 .DS_Store
+.AppleDouble
+.LSOverride
+
+# Swift Package Manager
 .build/
+#Swift App
+dist/
+# Xcode-generated when opening Package.swift (regenerate locally)
 .swiftpm/
+
+# Xcode (if you open the package in Xcode)
 DerivedData/
 xcuserdata/
 *.xcuserstate
-*.xcodeproj/project.xcworkspace/xcuserdata/
 *.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+
+# Archives / symbols
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Profiling / coverage
+*.profraw
+*.profdata
+
+# IDEs & editors
+.idea/
+*.swp
+*~
+
+# Local env / secrets
+.env
+.env.local
