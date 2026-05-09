@@ -5,6 +5,8 @@
 
 # Swift Package Manager
 .build/
+#Swift App
+dist/
 # Xcode-generated when opening Package.swift (regenerate locally)
 .swiftpm/
 

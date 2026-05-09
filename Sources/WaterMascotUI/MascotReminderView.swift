@@ -8,6 +8,9 @@ public enum ReminderReason {
 }
 
 public struct MascotReminderView: View {
+    private static let maximumBubbleContentWidth: CGFloat = 288
+    private static let reminderButtonRowWidth: CGFloat = 168
+
     let message: String
     let celebrationMessage: String
     let celebrationAutoDismissAfter: TimeInterval
@@ -36,14 +39,19 @@ public struct MascotReminderView: View {
     }
 
     public var body: some View {
+        let text = isCelebrating ? celebrationMessage : message
+        let textWeight: Font.Weight = isCelebrating ? .semibold : .medium
+        let contentWidth = bubbleContentWidth(for: text, weight: textWeight, includesButtons: !isCelebrating)
+
         VStack(alignment: .center, spacing: -8) {
             ZStack(alignment: .bottom) {
                 VStack(alignment: .leading, spacing: 16) {
-                    Text(isCelebrating ? celebrationMessage : message)
-                        .font(.system(size: 12, weight: isCelebrating ? .semibold : .medium))
+                    Text(text)
+                        .font(.system(size: 12, weight: textWeight))
                         .foregroundStyle(Color.white.opacity(0.95))
                         .multilineTextAlignment(.leading)
                         .lineLimit(isCelebrating ? 2 : 3)
+                        .frame(width: contentWidth, alignment: .leading)
                         .fixedSize(horizontal: false, vertical: true)
 
                     if !isCelebrating {
@@ -99,10 +107,13 @@ public struct MascotReminderView: View {
                     }
                 }
                 .padding(16)
-                .frame(width: 320, alignment: .topLeading)
+                .frame(width: contentWidth + 32, alignment: .topLeading)
                 .background(Color(red: 0.15, green: 0.17, blue: 0.28))
                 .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-
+                .shadow(
+                    color: Color(red: 0, green: 0, blue: 0, opacity: 0.1),
+            radius: 4,
+            x: 0, y: 2)
                 MessageBubblePolygonTail()
                     .allowsHitTesting(false)
             }
@@ -142,6 +153,12 @@ public struct MascotReminderView: View {
                 isBubbleVisible = true
             }
         }
+    }
+
+    private func bubbleContentWidth(for text: String, weight: Font.Weight, includesButtons: Bool) -> CGFloat {
+        let measuredTextWidth = TextWidthMeasurer.width(for: text, fontSize: 12, weight: weight)
+        let minimumContentWidth = includesButtons ? Self.reminderButtonRowWidth : 0
+        return min(max(measuredTextWidth, minimumContentWidth), Self.maximumBubbleContentWidth)
     }
 
     private func performSuccessSequence() {
@@ -202,6 +219,8 @@ public struct MascotReminderView: View {
 }
 
 public struct MascotCelebrationView: View {
+    private static let maximumBubbleContentWidth: CGFloat = 288
+
     let message: String
     let autoDismissAfter: TimeInterval?
     let onDismiss: (() -> Void)?
@@ -220,6 +239,8 @@ public struct MascotCelebrationView: View {
     }
 
     public var body: some View {
+        let contentWidth = bubbleContentWidth(for: message)
+
         VStack(alignment: .center, spacing: -8) {
             ZStack(alignment: .bottom) {
                 VStack(alignment: .leading, spacing: 16) {
@@ -228,13 +249,18 @@ public struct MascotCelebrationView: View {
                         .foregroundStyle(Color.white.opacity(0.95))
                         .multilineTextAlignment(.leading)
                         .lineLimit(2)
+                        .frame(width: contentWidth, alignment: .leading)
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 .padding(16)
-                .frame(width: 320, alignment: .center)
+                .frame(width: contentWidth + 32, alignment: .center)
                 .background(Color(red: 0.15, green: 0.17, blue: 0.28))
-                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-
+                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                .shadow(
+           color: Color(red: 0, green: 0, blue: 0, opacity: 0.1),
+            radius: 4,
+            x: 0, y: 2)
+            
                 MessageBubblePolygonTail()
                     .allowsHitTesting(false)
             }
@@ -254,6 +280,10 @@ public struct MascotCelebrationView: View {
         .frame(width: 360, height: 340, alignment: .bottom)
         .background(Color.clear)
         .onAppear(perform: runEntranceAnimation)
+        .shadow(
+           color: Color(red: 0, green: 0, blue: 0, opacity: 0.1),
+            radius: 4,
+            x: 0, y: 2)
     }
 
     private func runEntranceAnimation() {
@@ -298,6 +328,10 @@ public struct MascotCelebrationView: View {
             onDismiss?()
         }
     }
+
+    private func bubbleContentWidth(for text: String) -> CGFloat {
+        min(TextWidthMeasurer.width(for: text, fontSize: 12, weight: .semibold), Self.maximumBubbleContentWidth)
+    }
 }
 
 private enum MascotMotion {
@@ -305,6 +339,30 @@ private enum MascotMotion {
     static let buttonReboundDelay: TimeInterval = 0.15
     static let duration: TimeInterval = 0.2
     static let easeOut = Animation.easeOut(duration: duration)
+}
+
+private enum TextWidthMeasurer {
+    static func width(for text: String, fontSize: CGFloat, weight: Font.Weight) -> CGFloat {
+        let nsWeight: NSFont.Weight
+
+        switch weight {
+        case .semibold:
+            nsWeight = .semibold
+        case .bold:
+            nsWeight = .bold
+        case .medium:
+            nsWeight = .medium
+        case .regular:
+            nsWeight = .regular
+        default:
+            nsWeight = .regular
+        }
+
+        let font = NSFont.systemFont(ofSize: fontSize, weight: nsWeight)
+        let attributes: [NSAttributedString.Key: Any] = [.font: font]
+        let size = (text as NSString).size(withAttributes: attributes)
+        return ceil(size.width)
+    }
 }
 
 private struct AnimatedButtonStyle: ButtonStyle {
