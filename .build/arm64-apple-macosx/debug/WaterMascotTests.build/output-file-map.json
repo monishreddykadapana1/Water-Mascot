@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotTests.build/master.swiftdeps"
+  },
+  "/Users/monishkadapana/Water-Mascot/Tests/WaterMascotTests/HourlyReminderSchedulerTests.swift": {
+    "dependencies": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotTests.build/HourlyReminderSchedulerTests.d",
+    "object": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotTests.build/HourlyReminderSchedulerTests.swift.o",
+    "swiftmodule": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotTests.build/HourlyReminderSchedulerTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotTests.build/HourlyReminderSchedulerTests.swiftdeps",
+    "diagnostics": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotTests.build/HourlyReminderSchedulerTests.dia"
+  }
+}

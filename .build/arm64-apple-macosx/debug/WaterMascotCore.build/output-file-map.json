@@ -1,0 +1,26 @@
+{
+  "": {
+    "swift-dependencies": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/master.swiftdeps"
+  },
+  "/Users/monishkadapana/Water-Mascot/Sources/WaterMascotCore/HourlyReminderScheduler.swift": {
+    "dependencies": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HourlyReminderScheduler.d",
+    "object": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HourlyReminderScheduler.swift.o",
+    "swiftmodule": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HourlyReminderScheduler~partial.swiftmodule",
+    "swift-dependencies": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HourlyReminderScheduler.swiftdeps",
+    "diagnostics": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HourlyReminderScheduler.dia"
+  },
+  "/Users/monishkadapana/Water-Mascot/Sources/WaterMascotCore/HydrationMessages.swift": {
+    "dependencies": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HydrationMessages.d",
+    "object": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HydrationMessages.swift.o",
+    "swiftmodule": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HydrationMessages~partial.swiftmodule",
+    "swift-dependencies": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HydrationMessages.swiftdeps",
+    "diagnostics": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HydrationMessages.dia"
+  },
+  "/Users/monishkadapana/Water-Mascot/Sources/WaterMascotCore/ReminderSettings.swift": {
+    "dependencies": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/ReminderSettings.d",
+    "object": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/ReminderSettings.swift.o",
+    "swiftmodule": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/ReminderSettings~partial.swiftmodule",
+    "swift-dependencies": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/ReminderSettings.swiftdeps",
+    "diagnostics": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/ReminderSettings.dia"
+  }
+}

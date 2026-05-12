@@ -1,0 +1,13 @@
+{
+  "": {
+    "dependencies": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascotPreviewHost.build/WaterMascotPreviewHost.d",
+    "object": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascotPreviewHost.build/WaterMascotPreviewHost.o",
+    "swift-dependencies": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascotPreviewHost.build/master.swiftdeps"
+  },
+  "/Users/monishkadapana/Water-Mascot/Sources/WaterMascotPreviewHost/WaterMascotPreviewHostApp.swift": {
+    "object": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascotPreviewHost.build/WaterMascotPreviewHostApp.swift.o",
+    "swiftmodule": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascotPreviewHost.build/WaterMascotPreviewHostApp~partial.swiftmodule",
+    "swift-dependencies": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascotPreviewHost.build/WaterMascotPreviewHostApp.swiftdeps",
+    "diagnostics": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascotPreviewHost.build/WaterMascotPreviewHostApp.dia"
+  }
+}

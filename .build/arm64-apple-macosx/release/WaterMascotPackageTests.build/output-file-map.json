@@ -1,0 +1,13 @@
+{
+  "": {
+    "dependencies": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascotPackageTests.build/WaterMascotPackageTests.d",
+    "object": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascotPackageTests.build/WaterMascotPackageTests.o",
+    "swift-dependencies": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascotPackageTests.build/master.swiftdeps"
+  },
+  "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascotPackageTests.derived/runner.swift": {
+    "object": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascotPackageTests.build/runner.swift.o",
+    "swiftmodule": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascotPackageTests.build/runner~partial.swiftmodule",
+    "swift-dependencies": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascotPackageTests.build/runner.swiftdeps",
+    "diagnostics": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascotPackageTests.build/runner.dia"
+  }
+}

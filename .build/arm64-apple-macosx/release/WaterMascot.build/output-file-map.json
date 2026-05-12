@@ -1,0 +1,25 @@
+{
+  "": {
+    "dependencies": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascot.build/WaterMascot.d",
+    "object": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascot.build/WaterMascot.o",
+    "swift-dependencies": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascot.build/master.swiftdeps"
+  },
+  "/Users/monishkadapana/Water-Mascot/Sources/WaterMascot/AppDelegate.swift": {
+    "object": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascot.build/AppDelegate.swift.o",
+    "swiftmodule": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascot.build/AppDelegate~partial.swiftmodule",
+    "swift-dependencies": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascot.build/AppDelegate.swiftdeps",
+    "diagnostics": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascot.build/AppDelegate.dia"
+  },
+  "/Users/monishkadapana/Water-Mascot/Sources/WaterMascot/SystemNotificationClient.swift": {
+    "object": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascot.build/SystemNotificationClient.swift.o",
+    "swiftmodule": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascot.build/SystemNotificationClient~partial.swiftmodule",
+    "swift-dependencies": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascot.build/SystemNotificationClient.swiftdeps",
+    "diagnostics": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascot.build/SystemNotificationClient.dia"
+  },
+  "/Users/monishkadapana/Water-Mascot/Sources/WaterMascot/WaterMascotApp.swift": {
+    "object": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascot.build/WaterMascotApp.swift.o",
+    "swiftmodule": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascot.build/WaterMascotApp~partial.swiftmodule",
+    "swift-dependencies": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascot.build/WaterMascotApp.swiftdeps",
+    "diagnostics": "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascot.build/WaterMascotApp.dia"
+  }
+}

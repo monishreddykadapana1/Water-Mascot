@@ -1,0 +1,3 @@
+module WaterMascotCore {
+    header "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/release/WaterMascotCore.build/include/WaterMascotCore-Swift.h"
+}

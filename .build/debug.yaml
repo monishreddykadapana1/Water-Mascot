@@ -1,0 +1,269 @@
+client:
+  name: basic
+  file-system: device-agnostic
+tools: {}
+targets:
+  "PackageStructure": ["<PackageStructure>"]
+  "WaterMascot-arm64-apple-macosx15.0-debug.exe": ["<WaterMascot-arm64-apple-macosx15.0-debug.exe>"]
+  "WaterMascot-arm64-apple-macosx15.0-debug.module": ["<WaterMascot-arm64-apple-macosx15.0-debug.module>"]
+  "WaterMascotCore-arm64-apple-macosx15.0-debug.module": ["<WaterMascotCore-arm64-apple-macosx15.0-debug.module>"]
+  "WaterMascotPackageTests-arm64-apple-macosx15.0-debug.module": ["<WaterMascotPackageTests-arm64-apple-macosx15.0-debug.module>"]
+  "WaterMascotPackageTests-arm64-apple-macosx15.0-debug.test": ["<WaterMascotPackageTests-arm64-apple-macosx15.0-debug.test>"]
+  "WaterMascotPreviewHost-arm64-apple-macosx15.0-debug.exe": ["<WaterMascotPreviewHost-arm64-apple-macosx15.0-debug.exe>"]
+  "WaterMascotPreviewHost-arm64-apple-macosx15.0-debug.module": ["<WaterMascotPreviewHost-arm64-apple-macosx15.0-debug.module>"]
+  "WaterMascotTests-arm64-apple-macosx15.0-debug.module": ["<WaterMascotTests-arm64-apple-macosx15.0-debug.module>"]
+  "WaterMascotUI-arm64-apple-macosx15.0-debug.module": ["<WaterMascotUI-arm64-apple-macosx15.0-debug.module>"]
+  "main": ["<WaterMascot-arm64-apple-macosx15.0-debug.exe>","<WaterMascot-arm64-apple-macosx15.0-debug.module>","<WaterMascotCore-arm64-apple-macosx15.0-debug.module>","<WaterMascotPreviewHost-arm64-apple-macosx15.0-debug.exe>","<WaterMascotPreviewHost-arm64-apple-macosx15.0-debug.module>","<WaterMascotUI-arm64-apple-macosx15.0-debug.module>"]
+  "test": ["<WaterMascot-arm64-apple-macosx15.0-debug.exe>","<WaterMascot-arm64-apple-macosx15.0-debug.module>","<WaterMascotCore-arm64-apple-macosx15.0-debug.module>","<WaterMascotPackageTests-arm64-apple-macosx15.0-debug.test>","<WaterMascotPreviewHost-arm64-apple-macosx15.0-debug.exe>","<WaterMascotPreviewHost-arm64-apple-macosx15.0-debug.module>","<WaterMascotTests-arm64-apple-macosx15.0-debug.module>","<WaterMascotUI-arm64-apple-macosx15.0-debug.module>"]
+default: "main"
+nodes:
+  "/Users/monishkadapana/Water-Mascot/Sources/WaterMascot/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/monishkadapana/Water-Mascot/Sources/WaterMascotCore/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/monishkadapana/Water-Mascot/Sources/WaterMascotPreviewHost/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/monishkadapana/Water-Mascot/Sources/WaterMascotUI/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/monishkadapana/Water-Mascot/Tests/WaterMascotTests/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot":
+    is-mutated: true
+  "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPreviewHost":
+    is-mutated: true
+commands:
+  "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot-entitlement.plist":
+    tool: write-auxiliary-file
+    inputs: ["<entitlement-plist>","<com.apple.security.get-task-allow>"]
+    outputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot-entitlement.plist"]
+    description: "Write auxiliary file /Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot-entitlement.plist"
+
+  "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/monishkadapana/Water-Mascot/Sources/WaterMascot/AppDelegate.swift","/Users/monishkadapana/Water-Mascot/Sources/WaterMascot/SystemNotificationClient.swift","/Users/monishkadapana/Water-Mascot/Sources/WaterMascot/WaterMascotApp.swift"]
+    outputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot.build/sources"]
+    description: "Write auxiliary file /Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot.build/sources"
+
+  "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot.build/AppDelegate.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot.build/SystemNotificationClient.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot.build/WaterMascotApp.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HourlyReminderScheduler.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HydrationMessages.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/ReminderSettings.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotUI.build/MascotReminderView.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotUI.build/resource_bundle_accessor.swift.o"]
+    outputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot.product/Objects.LinkFileList"
+
+  "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/monishkadapana/Water-Mascot/Sources/WaterMascotCore/HourlyReminderScheduler.swift","/Users/monishkadapana/Water-Mascot/Sources/WaterMascotCore/HydrationMessages.swift","/Users/monishkadapana/Water-Mascot/Sources/WaterMascotCore/ReminderSettings.swift"]
+    outputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/sources"]
+    description: "Write auxiliary file /Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/sources"
+
+  "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPackageTests.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPackageTests.derived/runner.swift"]
+    outputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPackageTests.build/sources"]
+    description: "Write auxiliary file /Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPackageTests.build/sources"
+
+  "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPackageTests.derived/runner.swift":
+    tool: test-entry-point-tool
+    inputs: []
+    outputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPackageTests.derived/runner.swift"]
+
+  "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPackageTests.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HourlyReminderScheduler.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HydrationMessages.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/ReminderSettings.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPackageTests.build/runner.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotTests.build/HourlyReminderSchedulerTests.swift.o"]
+    outputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPackageTests.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPackageTests.product/Objects.LinkFileList"
+
+  "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPreviewHost-entitlement.plist":
+    tool: write-auxiliary-file
+    inputs: ["<entitlement-plist>","<com.apple.security.get-task-allow>"]
+    outputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPreviewHost-entitlement.plist"]
+    description: "Write auxiliary file /Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPreviewHost-entitlement.plist"
+
+  "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPreviewHost.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/monishkadapana/Water-Mascot/Sources/WaterMascotPreviewHost/WaterMascotPreviewHostApp.swift"]
+    outputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPreviewHost.build/sources"]
+    description: "Write auxiliary file /Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPreviewHost.build/sources"
+
+  "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPreviewHost.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HourlyReminderScheduler.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HydrationMessages.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/ReminderSettings.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPreviewHost.build/WaterMascotPreviewHostApp.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotUI.build/MascotReminderView.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotUI.build/resource_bundle_accessor.swift.o"]
+    outputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPreviewHost.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPreviewHost.product/Objects.LinkFileList"
+
+  "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotTests.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/monishkadapana/Water-Mascot/Tests/WaterMascotTests/HourlyReminderSchedulerTests.swift"]
+    outputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotTests.build/sources"]
+    description: "Write auxiliary file /Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotTests.build/sources"
+
+  "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotUI.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/monishkadapana/Water-Mascot/Sources/WaterMascotUI/MascotReminderView.swift","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotUI.build/DerivedSources/resource_bundle_accessor.swift"]
+    outputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotUI.build/sources"]
+    description: "Write auxiliary file /Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotUI.build/sources"
+
+  "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot_WaterMascotUI.bundle/README.md":
+    tool: copy-tool
+    inputs: ["/Users/monishkadapana/Water-Mascot/Sources/WaterMascotUI/Resources/Mascot/README.md"]
+    outputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot_WaterMascotUI.bundle/README.md"]
+    description: "Copying /Users/monishkadapana/Water-Mascot/Sources/WaterMascotUI/Resources/Mascot/README.md"
+
+  "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot_WaterMascotUI.bundle/mascot_celebrate.png":
+    tool: copy-tool
+    inputs: ["/Users/monishkadapana/Water-Mascot/Sources/WaterMascotUI/Resources/Mascot/mascot_celebrate.png"]
+    outputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot_WaterMascotUI.bundle/mascot_celebrate.png"]
+    description: "Copying /Users/monishkadapana/Water-Mascot/Sources/WaterMascotUI/Resources/Mascot/mascot_celebrate.png"
+
+  "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot_WaterMascotUI.bundle/mascot_reminder.png":
+    tool: copy-tool
+    inputs: ["/Users/monishkadapana/Water-Mascot/Sources/WaterMascotUI/Resources/Mascot/mascot_reminder.png"]
+    outputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot_WaterMascotUI.bundle/mascot_reminder.png"]
+    description: "Copying /Users/monishkadapana/Water-Mascot/Sources/WaterMascotUI/Resources/Mascot/mascot_reminder.png"
+
+  "/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt":
+    tool: write-auxiliary-file
+    inputs: ["<swift-get-version>","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"]
+    outputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"]
+    always-out-of-date: "true"
+    description: "Write auxiliary file /Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+
+  "<WaterMascot-arm64-apple-macosx15.0-debug.exe>":
+    tool: phony
+    inputs: ["<WaterMascot-arm64-apple-macosx15.0-debug.exe-CodeSigning>"]
+    outputs: ["<WaterMascot-arm64-apple-macosx15.0-debug.exe>"]
+
+  "<WaterMascot-arm64-apple-macosx15.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot.build/AppDelegate.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot.build/SystemNotificationClient.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot.build/WaterMascotApp.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascot.swiftmodule"]
+    outputs: ["<WaterMascot-arm64-apple-macosx15.0-debug.module>"]
+
+  "<WaterMascotCore-arm64-apple-macosx15.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HourlyReminderScheduler.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HydrationMessages.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/ReminderSettings.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotCore.swiftmodule"]
+    outputs: ["<WaterMascotCore-arm64-apple-macosx15.0-debug.module>"]
+
+  "<WaterMascotPackageTests-arm64-apple-macosx15.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPackageTests.build/runner.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotPackageTests.swiftmodule"]
+    outputs: ["<WaterMascotPackageTests-arm64-apple-macosx15.0-debug.module>"]
+
+  "<WaterMascotPackageTests-arm64-apple-macosx15.0-debug.test>":
+    tool: phony
+    inputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPackageTests.xctest/Contents/MacOS/WaterMascotPackageTests"]
+    outputs: ["<WaterMascotPackageTests-arm64-apple-macosx15.0-debug.test>"]
+
+  "<WaterMascotPreviewHost-arm64-apple-macosx15.0-debug.exe>":
+    tool: phony
+    inputs: ["<WaterMascotPreviewHost-arm64-apple-macosx15.0-debug.exe-CodeSigning>"]
+    outputs: ["<WaterMascotPreviewHost-arm64-apple-macosx15.0-debug.exe>"]
+
+  "<WaterMascotPreviewHost-arm64-apple-macosx15.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPreviewHost.build/WaterMascotPreviewHostApp.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotPreviewHost.swiftmodule"]
+    outputs: ["<WaterMascotPreviewHost-arm64-apple-macosx15.0-debug.module>"]
+
+  "<WaterMascotTests-arm64-apple-macosx15.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotTests.build/HourlyReminderSchedulerTests.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotTests.swiftmodule"]
+    outputs: ["<WaterMascotTests-arm64-apple-macosx15.0-debug.module>"]
+
+  "<WaterMascotUI-arm64-apple-macosx15.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotUI.build/MascotReminderView.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotUI.build/resource_bundle_accessor.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotUI.swiftmodule"]
+    outputs: ["<WaterMascotUI-arm64-apple-macosx15.0-debug.module>"]
+
+  "C.WaterMascot-arm64-apple-macosx15.0-debug.exe":
+    tool: shell
+    inputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot.build/AppDelegate.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot.build/SystemNotificationClient.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot.build/WaterMascotApp.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HourlyReminderScheduler.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HydrationMessages.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/ReminderSettings.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotUI.build/MascotReminderView.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotUI.build/resource_bundle_accessor.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot.product/Objects.LinkFileList"]
+    outputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot"]
+    description: "Linking ./.build/arm64-apple-macosx/debug/WaterMascot"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-L","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug","-o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot","-module-name","WaterMascot","-Xlinker","-no_warn_duplicate_libraries","-emit-executable","-Xlinker","-alias","-Xlinker","_WaterMascot_main","-Xlinker","_main","-Xlinker","-rpath","-Xlinker","@loader_path","@/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-6.2/macosx","-target","arm64-apple-macosx14.0","-Xlinker","-add_ast_path","-Xlinker","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascot.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotCore.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotUI.swiftmodule","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g"]
+
+  "C.WaterMascot-arm64-apple-macosx15.0-debug.exe-entitlements":
+    tool: shell
+    inputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot-entitlement.plist"]
+    outputs: ["<WaterMascot-arm64-apple-macosx15.0-debug.exe-CodeSigning>"]
+    description: "Applying debug entitlements to ./.build/arm64-apple-macosx/debug/WaterMascot"
+    args: ["codesign","--force","--sign","-","--entitlements","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot-entitlement.plist","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot"]
+
+  "C.WaterMascot-arm64-apple-macosx15.0-debug.module":
+    tool: shell
+    inputs: ["/Users/monishkadapana/Water-Mascot/Sources/WaterMascot/AppDelegate.swift","/Users/monishkadapana/Water-Mascot/Sources/WaterMascot/SystemNotificationClient.swift","/Users/monishkadapana/Water-Mascot/Sources/WaterMascot/WaterMascotApp.swift","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotCore.swiftmodule","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotUI.swiftmodule","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot.build/sources"]
+    outputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot.build/AppDelegate.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot.build/SystemNotificationClient.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot.build/WaterMascotApp.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascot.swiftmodule"]
+    description: "Compiling Swift Module 'WaterMascot' (3 sources)"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","WaterMascot","-emit-dependencies","-emit-module","-emit-module-path","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascot.swiftmodule","-output-file-map","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot.build/output-file-map.json","-incremental","-c","@/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot.build/sources","-I","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx14.0","-incremental","-enable-batch-mode","-serialize-diagnostics","-index-store-path","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j8","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","WaterMascot_main","-swift-version","5","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-Xcc","-fPIC","-Xcc","-g","-package-name","water_mascot"]
+
+  "C.WaterMascotCore-arm64-apple-macosx15.0-debug.module":
+    tool: shell
+    inputs: ["/Users/monishkadapana/Water-Mascot/Sources/WaterMascotCore/HourlyReminderScheduler.swift","/Users/monishkadapana/Water-Mascot/Sources/WaterMascotCore/HydrationMessages.swift","/Users/monishkadapana/Water-Mascot/Sources/WaterMascotCore/ReminderSettings.swift","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/sources"]
+    outputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HourlyReminderScheduler.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HydrationMessages.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/ReminderSettings.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotCore.swiftmodule"]
+    description: "Compiling Swift Module 'WaterMascotCore' (3 sources)"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","WaterMascotCore","-emit-dependencies","-emit-module","-emit-module-path","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotCore.swiftmodule","-output-file-map","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/sources","-I","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx14.0","-incremental","-enable-batch-mode","-serialize-diagnostics","-index-store-path","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j8","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/include/WaterMascotCore-Swift.h","-swift-version","5","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-Xcc","-fPIC","-Xcc","-g","-package-name","water_mascot"]
+
+  "C.WaterMascotPackageTests-arm64-apple-macosx15.0-debug.module":
+    tool: shell
+    inputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPackageTests.derived/runner.swift","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotTests.swiftmodule","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPackageTests.build/sources"]
+    outputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPackageTests.build/runner.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotPackageTests.swiftmodule"]
+    description: "Compiling Swift Module 'WaterMascotPackageTests' (1 sources)"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","WaterMascotPackageTests","-emit-dependencies","-emit-module","-emit-module-path","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotPackageTests.swiftmodule","-output-file-map","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPackageTests.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPackageTests.build/sources","-I","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx14.0","-incremental","-enable-batch-mode","-serialize-diagnostics","-index-store-path","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-Xfrontend","-enable-cross-import-overlays","-j8","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPackageTests.build/include/WaterMascotPackageTests-Swift.h","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-Xcc","-fPIC","-Xcc","-g","-package-name","water_mascot"]
+
+  "C.WaterMascotPackageTests-arm64-apple-macosx15.0-debug.test":
+    tool: shell
+    inputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HourlyReminderScheduler.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HydrationMessages.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/ReminderSettings.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPackageTests.build/runner.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotTests.build/HourlyReminderSchedulerTests.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPackageTests.product/Objects.LinkFileList"]
+    outputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPackageTests.xctest/Contents/MacOS/WaterMascotPackageTests"]
+    description: "Linking ./.build/arm64-apple-macosx/debug/WaterMascotPackageTests.xctest/Contents/MacOS/WaterMascotPackageTests"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-L","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug","-o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPackageTests.xctest/Contents/MacOS/WaterMascotPackageTests","-module-name","WaterMascotPackageTests","-Xlinker","-no_warn_duplicate_libraries","-Xlinker","-bundle","-Xlinker","-rpath","-Xlinker","@loader_path/../../../","@/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPackageTests.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-6.2/macosx","-target","arm64-apple-macosx14.0","-Xlinker","-add_ast_path","-Xlinker","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotCore.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotPackageTests.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotTests.swiftmodule","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g"]
+
+  "C.WaterMascotPreviewHost-arm64-apple-macosx15.0-debug.exe":
+    tool: shell
+    inputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HourlyReminderScheduler.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/HydrationMessages.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotCore.build/ReminderSettings.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPreviewHost.build/WaterMascotPreviewHostApp.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotUI.build/MascotReminderView.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotUI.build/resource_bundle_accessor.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPreviewHost.product/Objects.LinkFileList"]
+    outputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPreviewHost"]
+    description: "Linking ./.build/arm64-apple-macosx/debug/WaterMascotPreviewHost"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-L","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug","-o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPreviewHost","-module-name","WaterMascotPreviewHost","-Xlinker","-no_warn_duplicate_libraries","-emit-executable","-Xlinker","-alias","-Xlinker","_WaterMascotPreviewHost_main","-Xlinker","_main","-Xlinker","-rpath","-Xlinker","@loader_path","@/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPreviewHost.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-6.2/macosx","-target","arm64-apple-macosx14.0","-Xlinker","-add_ast_path","-Xlinker","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotCore.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotPreviewHost.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotUI.swiftmodule","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g"]
+
+  "C.WaterMascotPreviewHost-arm64-apple-macosx15.0-debug.exe-entitlements":
+    tool: shell
+    inputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPreviewHost","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPreviewHost-entitlement.plist"]
+    outputs: ["<WaterMascotPreviewHost-arm64-apple-macosx15.0-debug.exe-CodeSigning>"]
+    description: "Applying debug entitlements to ./.build/arm64-apple-macosx/debug/WaterMascotPreviewHost"
+    args: ["codesign","--force","--sign","-","--entitlements","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPreviewHost-entitlement.plist","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPreviewHost"]
+
+  "C.WaterMascotPreviewHost-arm64-apple-macosx15.0-debug.module":
+    tool: shell
+    inputs: ["/Users/monishkadapana/Water-Mascot/Sources/WaterMascotPreviewHost/WaterMascotPreviewHostApp.swift","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotUI.swiftmodule","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPreviewHost.build/sources"]
+    outputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPreviewHost.build/WaterMascotPreviewHostApp.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotPreviewHost.swiftmodule"]
+    description: "Compiling Swift Module 'WaterMascotPreviewHost' (1 sources)"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","WaterMascotPreviewHost","-emit-dependencies","-emit-module","-emit-module-path","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotPreviewHost.swiftmodule","-output-file-map","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPreviewHost.build/output-file-map.json","-incremental","-c","@/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotPreviewHost.build/sources","-I","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx14.0","-incremental","-enable-batch-mode","-serialize-diagnostics","-index-store-path","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j8","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","WaterMascotPreviewHost_main","-parse-as-library","-swift-version","5","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-Xcc","-fPIC","-Xcc","-g","-package-name","water_mascot"]
+
+  "C.WaterMascotTests-arm64-apple-macosx15.0-debug.module":
+    tool: shell
+    inputs: ["/Users/monishkadapana/Water-Mascot/Tests/WaterMascotTests/HourlyReminderSchedulerTests.swift","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotCore.swiftmodule","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotTests.build/sources"]
+    outputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotTests.build/HourlyReminderSchedulerTests.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotTests.swiftmodule"]
+    description: "Compiling Swift Module 'WaterMascotTests' (1 sources)"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","WaterMascotTests","-emit-dependencies","-emit-module","-emit-module-path","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotTests.swiftmodule","-output-file-map","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotTests.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotTests.build/sources","-I","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx14.0","-incremental","-enable-batch-mode","-serialize-diagnostics","-index-store-path","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-Xfrontend","-enable-cross-import-overlays","-j8","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-swift-version","5","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-Xcc","-fPIC","-Xcc","-g","-package-name","water_mascot"]
+
+  "C.WaterMascotUI-arm64-apple-macosx15.0-debug.module":
+    tool: shell
+    inputs: ["/Users/monishkadapana/Water-Mascot/Sources/WaterMascotUI/MascotReminderView.swift","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotUI.build/DerivedSources/resource_bundle_accessor.swift","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt","<WaterMascotUI-arm64-apple-macosx15.0-debug.module-resources>","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotCore.swiftmodule","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotUI.build/sources"]
+    outputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotUI.build/MascotReminderView.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotUI.build/resource_bundle_accessor.swift.o","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotUI.swiftmodule"]
+    description: "Compiling Swift Module 'WaterMascotUI' (2 sources)"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","WaterMascotUI","-emit-dependencies","-emit-module","-emit-module-path","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules/WaterMascotUI.swiftmodule","-output-file-map","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotUI.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotUI.build/sources","-I","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx14.0","-incremental","-enable-batch-mode","-serialize-diagnostics","-index-store-path","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j8","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_AVAILABLE","-module-cache-path","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascotUI.build/include/WaterMascotUI-Swift.h","-swift-version","5","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-Xcc","-fPIC","-Xcc","-g","-package-name","water_mascot"]
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/Users/monishkadapana/Water-Mascot/Sources/WaterMascot/","/Users/monishkadapana/Water-Mascot/Sources/WaterMascotCore/","/Users/monishkadapana/Water-Mascot/Sources/WaterMascotPreviewHost/","/Users/monishkadapana/Water-Mascot/Sources/WaterMascotUI/","/Users/monishkadapana/Water-Mascot/Tests/WaterMascotTests/","/Users/monishkadapana/Water-Mascot/Package.swift","/Users/monishkadapana/Water-Mascot/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+
+  "WaterMascotUI-arm64-apple-macosx15.0-debug.module-resources":
+    tool: phony
+    inputs: ["/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot_WaterMascotUI.bundle/README.md","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot_WaterMascotUI.bundle/mascot_celebrate.png","/Users/monishkadapana/Water-Mascot/.build/arm64-apple-macosx/debug/WaterMascot_WaterMascotUI.bundle/mascot_reminder.png"]
+    outputs: ["<WaterMascotUI-arm64-apple-macosx15.0-debug.module-resources>"]
+
